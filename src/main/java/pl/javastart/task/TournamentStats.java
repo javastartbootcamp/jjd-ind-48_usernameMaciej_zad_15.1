@@ -22,9 +22,9 @@ public class TournamentStats {
         } while (!userOption.equals("STOP"));
         Comparator<Player> comparator = sortByParameter(scanner);
 
-        sortAscendingOrDescending(scanner);
+        Comparator<Player> comparator1 = sortAscendingOrDescending(scanner, comparator);
 
-        players.sort(comparator);
+        players.sort(comparator1);
 
         try {
             savePlayersToFile("stats.csv");
@@ -33,14 +33,15 @@ public class TournamentStats {
         }
     }
 
-    private static void sortAscendingOrDescending(Scanner scanner) {
+    private static Comparator<Player> sortAscendingOrDescending(Scanner scanner, Comparator<Player> comparator) {
         System.out.println("Sortować rosnąco czy malejąco? (1 - rosnąco, 2 - malejąco)");
         int sortingOption = scanner.nextInt();
-        if (sortingOption == SORT_ASCENDING) {
-
-        } else if (sortingOption == SORT_DESCENDING) {
-
+        if (sortingOption == SORT_DESCENDING) {
+            return comparator = comparator.reversed();
+        } else if (sortingOption == SORT_ASCENDING) {
+            return comparator;
         }
+        return comparator;
     }
 
     private void savePlayersToFile(String fileName) throws IOException {
