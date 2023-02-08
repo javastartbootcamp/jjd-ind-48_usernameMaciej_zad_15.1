@@ -45,13 +45,13 @@ public class TournamentStats {
     }
 
     private void savePlayersToFile(String fileName) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
-        for (Player player : players) {
-            writer.write(player.toCsv());
-            writer.newLine();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (Player player : players) {
+                writer.write(player.toCsv());
+                writer.newLine();
+            }
+            System.out.println("Dane posortowano i zapisano do pliku stats.csv.");
         }
-        writer.close();
-        System.out.println("Dane posortowano i zapisano do pliku stats.csv.");
     }
 
     private static Comparator<Player> sortByParameter(Scanner scanner) {
